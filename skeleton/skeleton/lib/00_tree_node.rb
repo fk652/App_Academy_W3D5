@@ -1,8 +1,18 @@
-class PolyTreeNode
-
        #   a
       # b   c
     # d e    f
+
+#     e = Node.new('e')
+# f = Node.new('f') 
+# g = Node.new('g') 
+# b = Node.new('b', [d, e])
+# c = Node.new('c', [f, g])
+# a = Node.new('a', [b, c])
+
+
+class PolyTreeNode
+
+
 
   attr_reader :value, :parent, :children
 
@@ -44,6 +54,21 @@ class PolyTreeNode
     children.each do |child|
       result = child.dfs(target_value)
       return result if result != nil
+    end
+    nil
+  end
+
+  def bfs(target_value)
+    queue = [] 
+    queue.push(self) 
+    until queue.empty?
+
+      current_node = queue.shift
+      return current_node if current_node.value == target_value
+
+      current_node.children.each do |child|
+        queue.push(child)
+      end
     end
     nil
   end
