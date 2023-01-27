@@ -1,5 +1,5 @@
-       #   a
-      # b   c
+       #   [1, 2]
+      # [3, 3]   [3, 2]
     # d e    f
 
 #     e = Node.new('e')
@@ -17,7 +17,7 @@ class PolyTreeNode
   attr_reader :value, :parent, :children
 
   def initialize(value)
-    @value = value 
+    @value = value  #[1, 2]
     @parent = nil   #parent is an attribute that refers to a node
     @children = []  #refers to a bunch 
   end
@@ -28,7 +28,7 @@ class PolyTreeNode
 
 
   def parent=(new_parent)
-      if new_parent != nil
+      if new_parent != nil    
         if @parent != nil 
           @parent.children.delete(self)     
         end 
