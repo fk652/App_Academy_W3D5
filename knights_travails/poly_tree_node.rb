@@ -73,5 +73,19 @@ class PolyTreeNode
     nil
   end
 
-
+  def bfs_print
+    queue = [] 
+    queue.push([self, 1])
+    tree = []
+    until queue.empty?
+      current_node, level = queue.shift
+      # puts "#{current_node.value}"
+      tree << [] if level > tree.length
+      tree[level-1] << current_node.value
+      current_node.children.each do |child|
+        queue.push([child, level+1])
+      end
+    end
+    tree.each { |level| puts level.map { |pos| pos.to_s }.join(' ') }
+  end
 end

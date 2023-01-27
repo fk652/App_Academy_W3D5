@@ -1,6 +1,7 @@
 require_relative "poly_tree_node"
 
 class KnightPathFinder
+  attr_reader :root_node
 
   def self.valid_moves(position) #[1,2]
     x, y = position
@@ -13,13 +14,19 @@ class KnightPathFinder
     pos_7 = [(x-2), (y+1)]
     pos_8 = [(x-2), (y-1)]
     possible_moves  = [pos_1, pos_2, pos_3, pos_4, pos_5, pos_6, pos_7, pos_8]
-    possible_moves.select { |move| move[0] > 0 && move[0] < 7 && move[1] > 0 && move[1] < 7 }
+    possible_moves.select { |move| position_in_bounds?(move) }
+  end
+
+  def self.position_in_bounds?(position)
+    x, y = position
+    x >= 0 && x <= 7 && y >= 0 && y <= 7
   end
 
   def initialize(position)  # [1, 2]
-    @root_node = PolyTreeNode.new(root_node)
-    self.build_move_tree
+    raise "invalid starting position given" if !KnightPathFinder.position_in_bounds?(position)
+    @root_node = PolyTreeNode.new(position)
     @considered_positions = [position]
+    build_move_tree
   end
 
   def build_move_tree
@@ -44,4 +51,10 @@ class KnightPathFinder
   end
 end
 
-knight = KnightPathFinder([0,0])
+knight = KnightPathFinder.new([0,0])
+knight.root_node.bfs_print
+puts
+knight = KnightPathFinder.new([2,2])
+knight.root_node.bfs_print
+puts
+# knight = KnightPathFinder.new([0,10]) # => raises invalid starting position error
