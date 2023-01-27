@@ -58,3 +58,4 @@ knight = KnightPathFinder.new([2,2])
 knight.root_node.bfs_print
 puts
 # knight = KnightPathFinder.new([0,10]) # => raises invalid starting position error
+# knight = KnightPathFinder.new([-1,7]) # => raises invalid starting position error
