@@ -28,24 +28,18 @@ class PolyTreeNode
 
 
   def parent=(new_parent)
-      if new_parent != nil    
-        if @parent != nil 
-          @parent.children.delete(self)     
-        end 
-        @parent = new_parent
-        new_parent.children << self 
-      elsif 
-        @parent.children.delete(self)
-        @parent = nil
-      end     
+    @parent.children.delete(self) if @parent != nil
+    @parent = new_parent
+    new_parent.children << self if new_parent != nil
   end
 
   def add_child(new_child)
     new_child.parent = self
   end
 
-  def remove_child(new_child)
-    new_child.parent = nil
+  def remove_child(old_child)
+    raise "not a child of this node" if !children.include?(old_child)
+    old_child.parent = nil
   end
 
   def dfs(target_value)
